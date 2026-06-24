@@ -9,8 +9,6 @@
 body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-height:100vh;overflow-x:hidden}
 .view{display:none;flex-direction:column;align-items:center;min-height:100vh;padding:16px;background:linear-gradient(180deg,#0a1628,#1a2a4a)}
 .view.active{display:flex}
-
-/* ===== MODE SELECT ===== */
 .mode-title{font-size:26px;font-weight:bold;color:#ffd700;margin:30px 0 6px}
 .mode-sub{font-size:13px;color:#888;margin-bottom:24px}
 .mode-btns{display:flex;flex-direction:column;gap:14px;width:260px}
@@ -19,9 +17,7 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
 .mode-btn .icon{font-size:36px;margin-bottom:6px}
 .mode-btn .label{font-size:17px;font-weight:bold;color:#fff}
 .mode-btn .desc{font-size:11px;color:#888;margin-top:2px}
-.mode-btn.free{border-color:#2a3a5a}
 .mode-btn.free:active,.mode-btn.free.selected{border-color:#ffd700;background:rgba(255,215,0,0.06)}
-.mode-btn.live{border-color:#2a3a5a}
 .mode-btn.live:active,.mode-btn.live.selected{border-color:#4fc3f7;background:rgba(79,195,247,0.06)}
 .search-area{width:100%;max-width:400px;margin:18px auto 0;padding-top:16px;border-top:1px solid #1a2a4a}
 .search-area .sa-title{font-size:12px;color:#666;margin-bottom:8px;text-align:center}
@@ -36,10 +32,7 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
 .search-res .sr-item .sr-info{flex:1;font-size:12px;line-height:1.4}
 .search-res .sr-item .sr-info .sr-teams{font-size:13px;font-weight:bold;color:#fff}
 .search-res .sr-item .sr-info .sr-meta{color:#888;font-size:10px}
-.search-res .sr-item .sr-badge{width:22px;height:22px;border-radius:50%;margin:0 3px;object-fit:contain}
 .search-res .sr-none{color:#555;font-size:12px;text-align:center;padding:10px}
-
-/* ===== SELECT VIEW (Free mode) ===== */
 .sel-header{text-align:center;margin-bottom:12px;width:100%}
 .sel-title{font-size:20px;font-weight:bold;color:#ffd700}
 .sel-sub{font-size:11px;color:#888;margin-top:3px}
@@ -58,8 +51,6 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
 .sel-btn:active{background:#1a2a4a}
 .sel-gen{width:180px;height:40px;font-size:15px;font-weight:bold;border-radius:50px;border:none;background:linear-gradient(135deg,#ffd700,#ffaa00);color:#000;cursor:pointer;transition:opacity .2s;-webkit-tap-highlight-color:transparent}
 .sel-gen:disabled{opacity:.4;cursor:not-allowed}
-
-/* ===== LIVE VIEW ===== */
 .top-bar{width:100%;max-width:420px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .back-btn{display:flex;align-items:center;gap:4px;font-size:13px;color:#888;cursor:pointer;padding:4px 8px;border-radius:6px;-webkit-tap-highlight-color:transparent}
 .back-btn:active{background:rgba(255,255,255,.05)}
@@ -73,7 +64,7 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
 .match-list{width:100%;max-width:400px;overflow-y:auto;padding-bottom:10px}
 .match-card{display:flex;align-items:center;padding:10px 12px;margin-bottom:6px;border-radius:12px;background:rgba(13,33,55,0.85);border:1px solid #2a3a5a;cursor:pointer;transition:all .1s}
 .match-card:active{background:rgba(79,195,247,0.08);border-color:#4fc3f7}
-.match-card .mc-badges{display:flex;flex-direction:column;align-items:center;gap:2px;margin-right:10px}
+.match-card .mc-badges{display:flex;flex-direction:column;align-items:center;gap:2px;margin-right:10px;min-width:32px}
 .match-card .mc-badges img{width:28px;height:28px;border-radius:50%;object-fit:contain}
 .match-card .mc-info{flex:1}
 .match-card .mc-info .mc-teams{font-size:14px;font-weight:bold;color:#fff}
@@ -86,8 +77,6 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
 .loading{color:#888;font-size:13px;text-align:center;padding:30px 0}
 .loading .spinner{width:30px;height:30px;border:3px solid #1a2a4a;border-top:3px solid #ffd700;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* ===== WHEEL VIEW ===== */
 .wheel-title{font-size:18px;font-weight:bold;color:#ffd700}
 .wheel-sub{font-size:11px;color:#666;margin-bottom:4px}
 .match-banner{width:100%;max-width:380px;text-align:center;font-size:13px;color:#4fc3f7;padding:4px 10px;margin-bottom:4px;background:rgba(79,195,247,0.06);border-radius:6px;border:1px solid rgba(79,195,247,0.15)}
@@ -118,7 +107,7 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
 </head>
 <body>
 
-<!-- ===== VIEW 0: MODE SELECT ===== -->
+<!-- VIEW 0: MODE SELECT -->
 <div id="modeView" class="view active">
   <div class="mode-title">足球转盘</div>
   <div class="mode-sub">选择模式开始</div>
@@ -131,7 +120,7 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
     <div class="mode-btn live" onclick="selectMode('live')">
       <div class="icon">🏆</div>
       <div class="label">实时赛事</div>
-      <div class="desc">选择当天比赛，生成赛事转盘</div>
+      <div class="desc">选择世界杯比赛，生成赛事转盘</div>
     </div>
   </div>
   <div class="search-area">
@@ -144,7 +133,7 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
   </div>
 </div>
 
-<!-- ===== VIEW 1: SCORE SELECT ===== -->
+<!-- VIEW 1: SCORE SELECT -->
 <div id="selectView" class="view">
   <div class="top-bar">
     <div class="back-btn" onclick="showView('modeView')">
@@ -165,7 +154,7 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
   <button class="sel-gen" id="selGenBtn" disabled>生成转盘 →</button>
 </div>
 
-<!-- ===== VIEW 2: LIVE MATCH LIST ===== -->
+<!-- VIEW 2: LIVE MATCH LIST -->
 <div id="liveView" class="view">
   <div class="top-bar">
     <div class="back-btn" onclick="showView('modeView')">
@@ -181,7 +170,7 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
   <div class="match-list" id="matchList"></div>
 </div>
 
-<!-- ===== VIEW 3: WHEEL ===== -->
+<!-- VIEW 3: WHEEL -->
 <div id="wheelView" class="view">
   <div class="top-bar">
     <div class="back-btn" id="backFromWheelBtn">
@@ -226,7 +215,7 @@ var COLORS = [
   "#55a3e8","#a29bfe","#fab1a0","#81ecec","#ff7675"
 ];
 
-// 常用国家队中文名映射
+// 常用国家队中文名
 var CN_NAMES = {
   "Switzerland":"瑞士","Canada":"加拿大","Brazil":"巴西","Argentina":"阿根廷",
   "France":"法国","Germany":"德国","Spain":"西班牙","England":"英格兰",
@@ -237,21 +226,35 @@ var CN_NAMES = {
   "Senegal":"塞内加尔","Ghana":"加纳","Tunisia":"突尼斯","Nigeria":"尼日利亚",
   "Uruguay":"乌拉圭","Colombia":"哥伦比亚","Ecuador":"厄瓜多尔","Peru":"秘鲁",
   "Denmark":"丹麦","Poland":"波兰","Serbia":"塞尔维亚","Wales":"威尔士",
-  "Qatar":"卡塔尔","Costa Rica":"哥斯达黎加"
+  "Qatar":"卡塔尔","Costa Rica":"哥斯达黎加","Paraguay":"巴拉圭","Turkey":"土耳其",
+  "Czechia":"捷克","Bosnia-Herzegovina":"波黑","Congo DR":"刚果金",
+  "South Africa":"南非","Korea Republic":"韩国","Sweden":"瑞典","Algeria":"阿尔及利亚",
+  "Iceland":"冰岛","Egypt":"埃及","Russia":"俄罗斯","Ukraine":"乌克兰",
+  "Austria":"奥地利","Hungary":"匈牙利","Romania":"罗马尼亚","Greece":"希腊",
+  "Ireland":"爱尔兰","Northern Ireland":"北爱尔兰","Slovakia":"斯洛伐克",
+  "Slovenia":"斯洛文尼亚","Bulgaria":"保加利亚","Finland":"芬兰","Norway":"挪威",
+  "Montenegro":"黑山","North Macedonia":"北马其顿","Georgia":"格鲁吉亚",
+  "Armenia":"亚美尼亚","Kazakhstan":"哈萨克斯坦","Luxembourg":"卢森堡",
+  "Faroe Islands":"法罗群岛","Malta":"马耳他","Moldova":"摩尔多瓦",
+  "Liechtenstein":"列支敦士登","Andorra":"安道尔","Gibraltar":"直布罗陀",
+  "Cyprus":"塞浦路斯","Israel":"以色列","Estonia":"爱沙尼亚","Latvia":"拉脱维亚",
+  "Lithuania":"立陶宛","Albania":"阿尔巴尼亚","Bosnia and Herzegovina":"波黑",
+  "Congo":"刚果","Curaçao":"库拉索"
 };
 
-var PI2 = 2 * Math.PI;
-var API_BASE = "https://www.thesportsdb.com/api/v1/json/3";
+var PI2x = 2 * Math.PI;
+var API_BASE = "https://api.football-data.org/v4";
+var API_KEY = "ab7974c2c3e84900a2c5839ef79e47eb";
 
 // ====== STATE ======
-var currentMode = null; // 'free' | 'live'
+var currentMode = null;
 var selectedIndices = ALL_SCORES.map(function(_,i){return i});
-var matchHistory = []; // for live mode
-var freeHistory = [];  // for free mode
-var currentDateStr = ""; // today
-var currentMatches = [];
-var selectedMatch = null; // {homeTeam, awayTeam, league, group, time, homeBadge, awayBadge, id}
-var PI2x = 2 * Math.PI, currentAngle = 0, spinning = false, animId = null;
+var matchHistory = [];
+var freeHistory = [];
+var allMatches = []; // cached World Cup matches
+var selectedMatch = null;
+var currentDateStr = "";
+var currentAngle = 0, spinning = false, animId = null;
 var canvas, ctx, wheelSize, wheelR, wheelCx, wheelCy;
 
 // ====== HELPERS ======
@@ -271,7 +274,28 @@ function getCnName(en) {
   return CN_NAMES[en] || en;
 }
 
-// ====== MODE SELECTION ======
+function formatUtcTime(utcStr) {
+  // UTC时间转北京时间 (+8小时)
+  if (!utcStr) return '';
+  var t = utcStr.replace('Z','').split('T');
+  var time = t[1] || '';
+  var parts = time.split(':');
+  var h = parseInt(parts[0])||0;
+  h = (h + 8) % 24;
+  return (h<10?'0':'')+h+':'+(parts[1]||'00');
+}
+
+function formatUtcDate(utcStr) {
+  if (!utcStr) return '';
+  return utcStr.substring(0,10);
+}
+
+function statusCn(status) {
+  var map = {'FINISHED':'已结束','TIMED':'待开赛','SCHEDULED':'已安排','IN_PLAY':'进行中','PAUSED':'中场','CANCELLED':'取消','POSTPONED':'推迟'};
+  return map[status] || status;
+}
+
+// ====== MODE SELECT ======
 function selectMode(mode) {
   currentMode = mode;
   if (mode === 'free') {
@@ -279,7 +303,6 @@ function selectMode(mode) {
     renderSelect();
   } else {
     showView('liveView');
-    document.getElementById('liveDate').value = currentDateStr || todayStr();
     loadMatches();
   }
 }
@@ -287,109 +310,91 @@ function selectMode(mode) {
 function backFromWheel() {
   if (animId) { cancelAnimationFrame(animId); animId = null; }
   spinning = false;
-  if (currentMode === 'live') {
-    showView('liveView');
-  } else {
-    showView('selectView');
-  }
+  showView(currentMode === 'live' ? 'liveView' : 'selectView');
 }
 document.getElementById('backFromWheelBtn').onclick = backFromWheel;
 
 // ====== SEARCH ======
 function onSearchInput() {
   var q = document.getElementById('searchInput').value.trim().toLowerCase();
-  var date = document.getElementById('searchDate').value || todayStr();
   if (q.length < 1) { document.getElementById('searchResults').innerHTML = ''; return; }
-  fetchAndShowSearch(q, date);
+  searchMatches(q, document.getElementById('searchDate').value || currentDateStr);
 }
 
 function onSearchDate() {
   var q = document.getElementById('searchInput').value.trim().toLowerCase();
   if (q.length < 1) return;
-  fetchAndShowSearch(q, document.getElementById('searchDate').value);
+  searchMatches(q, document.getElementById('searchDate').value);
 }
 
-function fetchAndShowSearch(q, date) {
+function searchMatches(query, date) {
   var res = document.getElementById('searchResults');
-  res.innerHTML = '<div class="loading"><div class="spinner"></div>搜索中...</div>';
-  var url = API_BASE + '/eventsday.php?d=' + date + '&s=Soccer';
-  var xhr = new XMLHttpRequest();
-  xhr.timeout = 8000;
-  xhr.onload = function() {
-    try {
-      var data = JSON.parse(xhr.responseText);
-      var evts = data.events || [];
-      var filtered = [];
-      evts.forEach(function(e) {
-        var home = (e.strHomeTeam||'').toLowerCase();
-        var away = (e.strAwayTeam||'').toLowerCase();
-        var homeCn = (CN_NAMES[e.strHomeTeam]||'').toLowerCase();
-        var awayCn = (CN_NAMES[e.strAwayTeam]||'').toLowerCase();
-        if (home.indexOf(q)>=0 || away.indexOf(q)>=0 || homeCn.indexOf(q)>=0 || awayCn.indexOf(q)>=0) {
-          filtered.push(e);
-        }
-      });
-      renderSearchResults(filtered, date, res);
-    } catch(e) {
-      res.innerHTML = '<div class="sr-none">搜索出错，请重试</div>';
-    }
-  };
-  xhr.onerror = xhr.ontimeout = function() {
-    res.innerHTML = '<div class="sr-none">搜索超时，请重试</div>';
-  };
-  xhr.open('GET', url, true);
-  xhr.send();
-}
-
-function renderSearchResults(evts, date, container) {
-  if (!evts || evts.length === 0) {
-    container.innerHTML = '<div class="sr-none">该日期无匹配赛事</div>';
+  if (allMatches.length === 0) {
+    res.innerHTML = '<div class="loading"><div class="spinner"></div>加载数据中...</div>';
+    fetchAllMatches(function() { searchMatches(query, date); });
     return;
   }
+  var filtered = [];
+  allMatches.forEach(function(m) {
+    var home = (m.homeTeam.name||'').toLowerCase();
+    var away = (m.awayTeam.name||'').toLowerCase();
+    var hcn = (CN_NAMES[m.homeTeam.name]||'').toLowerCase();
+    var acn = (CN_NAMES[m.awayTeam.name]||'').toLowerCase();
+    var matchDate = formatUtcDate(m.utcDate);
+    if (date && matchDate !== date) return;
+    if (home.indexOf(query)>=0 || away.indexOf(query)>=0 || hcn.indexOf(query)>=0 || acn.indexOf(query)>=0) {
+      filtered.push(m);
+    }
+  });
+  renderSearchResults(filtered, res);
+}
+
+function renderSearchResults(evts, container) {
+  if (!evts || evts.length === 0) {
+    container.innerHTML = '<div class="sr-none">无匹配赛事</div>'; return;
+  }
   var html = '';
-  evts.forEach(function(e) {
-    var league = e.strLeague || '';
-    var group = e.strGroup || '';
-    var time = e.strTime || '';
-    var status = e.strStatus || '';
-    var home = e.strHomeTeam || '?', away = e.strAwayTeam || '?';
-    var label = getCnName(home) + ' vs ' + getCnName(away);
-    html += '<div class="sr-item" onclick="quickGoMatch(\''+ escapeStr(home) + '\',\''+ escapeStr(away) + '\',\''+ escapeStr(league) + '\',\''+ escapeStr(group) + '\',\''+ escapeStr(time) + '\',\''+ escapeStr(status) + '\')">';
-    html += '<div class="sr-info"><div class="sr-teams">'+label+'</div><div class="sr-meta">'+league+' '+(group?'| '+group+'组 ':'')+'| '+time+' | '+status+'</div></div>';
+  evts.forEach(function(m) {
+    var h = m.homeTeam.name||'?', a = m.awayTeam.name||'?';
+    var comp = m.competition ? m.competition.name : '';
+    var grp = (m.group||'').replace('GROUP_','');
+    var md = m.matchday || '';
+    var time = formatUtcTime(m.utcDate) + ' BJ';
+    var label = getCnName(h) + ' vs ' + getCnName(a);
+    html += '<div class="sr-item" onclick="quickGoMatch(\''+escapeStr(h)+'\',\''+escapeStr(a)+'\',\''+escapeStr(comp)+'\',\''+escapeStr(grp)+'\','+md+',\''+escapeStr(m.status)+'\')">';
+    html += '<div class="sr-info"><div class="sr-teams">'+label+'</div><div class="sr-meta">'+comp+(grp?' | '+grp+'组 ':' ')+'第'+(md||'?')+'轮 | '+time+'</div></div>';
     html += '<span style="color:#ffd700;font-size:16px">→</span></div>';
   });
   container.innerHTML = html;
 }
 
-function escapeStr(s) { return (s||'').replace(/'/g,"\\'"); }
+function escapeStr(s) { return (s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
 
-function quickGoMatch(home, away, league, group, time, status) {
+function quickGoMatch(home, away, comp, grp, md, status) {
   currentMode = 'live';
-  selectedMatch = {homeTeam:home, awayTeam:away, league:league, group:group, time:time, status:status};
+  selectedMatch = {homeTeam:home, awayTeam:away, league:comp, group:grp, matchday:md, status:status};
   showView('wheelView');
   initWheel();
 }
 
-// ====== SELECT VIEW (Free mode) ======
+// ====== SELECT VIEW ======
 function renderSelect() {
-  var g = document.getElementById('selGrid');
-  g.innerHTML = '';
-  var sel = {};
-  selectedIndices.forEach(function(i){sel[i]=true});
+  var g = document.getElementById('selGrid'); g.innerHTML = '';
+  var sel = {}; selectedIndices.forEach(function(i){sel[i]=true});
   ALL_SCORES.forEach(function(it,i){
     var d = document.createElement('div');
-    d.className = 'sel-item' + (sel[i]?' checked':'');
-    d.innerHTML = '<div class="color-dot" style="background:'+COLORS[i]+'"></div><div class="sc">'+it.s+'</div><div class="dc">'+it.d+'</div><div class="ck">'+(sel[i]?'\u2713':'')+'</div>';
+    d.className='sel-item'+(sel[i]?' checked':'');
+    d.innerHTML='<div class="color-dot" style="background:'+COLORS[i]+'"></div><div class="sc">'+it.s+'</div><div class="dc">'+it.d+'</div><div class="ck">'+(sel[i]?'\u2713':'')+'</div>';
     d.addEventListener('click',function(){toggleSelect(i)});
     g.appendChild(d);
   });
-  document.getElementById('selCount').textContent = '\u5df2\u9009 '+selectedIndices.length+'/20';
-  document.getElementById('selGenBtn').disabled = selectedIndices.length < 2;
+  document.getElementById('selCount').textContent='\u5df2\u9009 '+selectedIndices.length+'/20';
+  document.getElementById('selGenBtn').disabled=selectedIndices.length<2;
 }
 function toggleSelect(i) {
-  var idx = selectedIndices.indexOf(i);
-  if (idx >= 0) { if(selectedIndices.length<=2)return; selectedIndices.splice(idx,1); }
-  else { selectedIndices.push(i); selectedIndices.sort(function(a,b){return a-b}); }
+  var idx=selectedIndices.indexOf(i);
+  if(idx>=0){if(selectedIndices.length<=2)return;selectedIndices.splice(idx,1)}
+  else{selectedIndices.push(i);selectedIndices.sort(function(a,b){return a-b})}
   renderSelect();
 }
 document.getElementById('selAllBtn').addEventListener('click',function(){selectedIndices=ALL_SCORES.map(function(_,i){return i});renderSelect()});
@@ -397,70 +402,85 @@ document.getElementById('selNoneBtn').addEventListener('click',function(){select
 document.getElementById('selGenBtn').addEventListener('click',function(){if(selectedIndices.length<2)return;currentMode='free';selectedMatch=null;showView('wheelView');initWheel()});
 
 // ====== LIVE VIEW ======
-function onLiveDateChange() {
-  loadMatches();
+function onLiveDateChange() { loadMatches(); }
+
+function fetchAllMatches(callback) {
+  var list = document.getElementById('matchList');
+  list.innerHTML = '<div class="loading"><div class="spinner"></div>加载赛事数据中...</div>';
+  var xhr = new XMLHttpRequest();
+  xhr.timeout = 15000;
+  xhr.onload = function() {
+    try {
+      var data = JSON.parse(xhr.responseText);
+      allMatches = data.matches || [];
+      if (callback) callback();
+      else renderMatchesByDate(currentDateStr);
+    } catch(e) { list.innerHTML = '<div class="loading" style="color:#e74c3c">数据加载失败，请重试</div>'; }
+  };
+  xhr.onerror = xhr.ontimeout = function() {
+    list.innerHTML = '<div class="loading" style="color:#e74c3c">网络请求超时，请重试</div>';
+  };
+  xhr.open('GET', API_BASE + '/competitions/2000/matches', true);
+  xhr.setRequestHeader('X-Auth-Token', API_KEY);
+  xhr.send();
 }
 
 function loadMatches() {
   var date = document.getElementById('liveDate').value || todayStr();
-  var list = document.getElementById('matchList');
-  list.innerHTML = '<div class="loading"><div class="spinner"></div>加载赛事中...</div>';
   currentDateStr = date;
-  var url = API_BASE + '/eventsday.php?d=' + date + '&s=Soccer';
-  var xhr = new XMLHttpRequest();
-  xhr.timeout = 10000;
-  xhr.onload = function() {
-    try {
-      var data = JSON.parse(xhr.responseText);
-      var evts = data.events || [];
-      // 筛选国际赛事（World Cup / Euro / Cup）
-      var filtered = evts.filter(function(e) {
-        var l = (e.strLeague||'').toLowerCase();
-        return l.indexOf('world cup')>=0 || l.indexOf('euro')>=0 || l.indexOf('cup')>=0 || l.indexOf('qualifier')>=0;
-      });
-      if (filtered.length === 0) filtered = evts; // fallback: show all
-      currentMatches = filtered;
-      renderMatches(filtered);
-    } catch(e) {
-      list.innerHTML = '<div class="loading" style="color:#e74c3c">加载失败，请下拉刷新重试</div>';
-    }
-  };
-  xhr.onerror = xhr.ontimeout = function() {
-    list.innerHTML = '<div class="loading" style="color:#e74c3c">网络超时，请下拉刷新重试</div>';
-  };
-  xhr.open('GET', url, true);
-  xhr.send();
+  if (allMatches.length === 0) {
+    fetchAllMatches();
+  } else {
+    renderMatchesByDate(date);
+  }
 }
 
-function renderMatches(evts) {
+function renderMatchesByDate(date) {
   var list = document.getElementById('matchList');
+  var filtered = [];
+  allMatches.forEach(function(m) {
+    var md = formatUtcDate(m.utcDate);
+    if (md === date) filtered.push(m);
+  });
+  // 按时间排序
+  filtered.sort(function(a,b){ return a.utcDate > b.utcDate ? 1 : -1; });
+  renderMatches(filtered, list);
+}
+
+function renderMatches(evts, list) {
+  if (!list) list = document.getElementById('matchList');
   if (!evts || evts.length === 0) {
-    list.innerHTML = '<div class="loading" style="color:#666">该日期暂无国际赛事</div>';
-    return;
+    list.innerHTML = '<div class="loading" style="color:#666">该日期无世界杯赛事</div>'; return;
   }
   var html = '';
-  evts.forEach(function(e) {
-    var home = e.strHomeTeam||'?', away = e.strAwayTeam||'?';
-    var league = e.strLeague||'', group = e.strGroup||'', time = e.strTime||'';
-    var status = e.strStatus||'';
-    var homeBadge = e.strHomeTeamBadge||'', awayBadge = e.strAwayTeamBadge||'';
-    var isFT = status === 'FT';
-    var hs = e.intHomeScore, as = e.intAwayScore;
-    var label = getCnName(home) + ' vs ' + getCnName(away);
+  evts.forEach(function(m) {
+    var h = m.homeTeam.name||'?', a = m.awayTeam.name||'?';
+    var comp = m.competition ? m.competition.name : '';
+    var grp = (m.group||'').replace('GROUP_','');
+    var md = m.matchday || '';
+    var status = m.status || '';
+    var time = formatUtcTime(m.utcDate);
+    var isFT = status === 'FINISHED';
+    var isLive = status === 'IN_PLAY';
+    var hs = m.score && m.score.fullTime && m.score.fullTime.home !== null ? m.score.fullTime.home : null;
+    var as2 = m.score && m.score.fullTime && m.score.fullTime.away !== null ? m.score.fullTime.away : null;
+    var homeBadge = m.homeTeam.crest || '';
+    var awayBadge = m.awayTeam.crest || '';
+    var label = getCnName(h) + ' vs ' + getCnName(a);
     var cls = isFT ? 'match-card ft' : 'match-card';
-    html += '<div class="'+cls+'" onclick="selectMatch(\''+escapeStr(home)+'\',\''+escapeStr(away)+'\',\''+escapeStr(league)+'\',\''+escapeStr(group)+'\',\''+escapeStr(time)+'\',\''+escapeStr(status)+'\')">';
+    html += '<div class="'+cls+'" onclick="selectFromMatch(\''+escapeStr(h)+'\',\''+escapeStr(a)+'\',\''+escapeStr(comp)+'\',\''+escapeStr(grp)+'\','+md+',\''+escapeStr(status)+'\')">';
     html += '<div class="mc-badges">';
     if (homeBadge) html += '<img src="'+homeBadge+'" onerror="this.style.display=\'none\'">';
     if (awayBadge) html += '<img src="'+awayBadge+'" onerror="this.style.display=\'none\'">';
-    html += '</div>';
-    html += '<div class="mc-info"><div class="mc-teams">'+label+'</div><div class="mc-meta">';
-    html += '<span class="tag">'+league+'</span>';
-    if (group) html += '<span class="tag">'+group+'组</span>';
-    html += time + (isFT?' (已结束)':'');
-    if (isFT && hs!==null && as!==null) html += ' | 比分 ' + hs + '-' + as;
+    html += '</div><div class="mc-info"><div class="mc-teams">'+label+'</div><div class="mc-meta">';
+    html += '<span class="tag">'+comp+'</span>';
+    if (grp) html += '<span class="tag">'+grp+'组</span>';
+    html += '第'+(md||'?')+'轮 | '+time+'BJ';
+    if (isLive) html += ' | <span style="color:#4fc3f7">● 进行中</span>';
+    else if (isFT) html += ' | <span style="color:#888">已结束</span>';
     html += '</div></div>';
-    if (isFT && hs!==null && as!==null) {
-      html += '<div class="mc-score">'+hs+'-'+as+'</div>';
+    if (isFT && hs!==null && as2!==null) {
+      html += '<div class="mc-score">'+hs+'-'+as2+'</div>';
     } else {
       html += '<div class="mc-arrow">→</div>';
     }
@@ -469,52 +489,41 @@ function renderMatches(evts) {
   list.innerHTML = html;
 }
 
-function selectMatch(home, away, league, group, time, status) {
+function selectFromMatch(home, away, comp, grp, md, status) {
   currentMode = 'live';
-  selectedMatch = {homeTeam:home, awayTeam:away, league:league, group:group, time:time, status:status};
+  selectedMatch = {homeTeam:home, awayTeam:away, league:comp, group:grp, matchday:md, status:status};
   showView('wheelView');
   initWheel();
 }
 
 // ====== WHEEL ======
 function initWheel() {
-  var scores, n;
-  if (currentMode === 'live' && selectedMatch) {
-    // 实时赛事模式：使用全部20个比分
-    scores = ALL_SCORES;
-  } else {
-    scores = selectedIndices.map(function(i){return ALL_SCORES[i]});
-  }
-  n = scores.length;
-
-  var configText = currentMode === 'live' && selectedMatch
+  var scores = (currentMode === 'live' && selectedMatch) ? ALL_SCORES : selectedIndices.map(function(i){return ALL_SCORES[i]});
+  var n = scores.length;
+  var configText = (currentMode === 'live' && selectedMatch)
     ? getCnName(selectedMatch.homeTeam)+' vs '+getCnName(selectedMatch.awayTeam)+' | '+n+'\u9879\u6bd4\u5206'
     : n+'\u9879\u6bd4\u5206';
   document.getElementById('wheelConfig').textContent = configText;
 
-  // 赛事Banner
   var banner = document.getElementById('matchBanner');
   if (currentMode === 'live' && selectedMatch) {
     banner.style.display = 'block';
-    var league = selectedMatch.league||'';
-    var group = selectedMatch.group||'';
-    var time = selectedMatch.time||'';
+    var grp = selectedMatch.group||'';
+    var md = selectedMatch.matchday||'';
     banner.textContent = '\uD83C\uDFC6 ' + getCnName(selectedMatch.homeTeam)+' vs '+getCnName(selectedMatch.awayTeam)
-      + (league?' | '+league:'') + (group?' | '+group+'\u7ec4':'') + ' | '+time;
+      + (grp?' | '+grp+'\u7ec4 ':'') + '\u7B2C'+(md||'?')+'\u8f6e';
   } else {
     banner.style.display = 'none';
   }
 
   canvas = document.getElementById('wheelCanvas');
-  var vw = Math.min(window.innerWidth - 32, 380);
-  var size = Math.max(240, vw);
-  wheelSize = size; wheelR = size * 0.48; wheelCx = size/2; wheelCy = size/2;
+  var vw = Math.min(window.innerWidth - 32, 380), size = Math.max(240, vw);
+  wheelSize=size; wheelR=size*0.48; wheelCx=size/2; wheelCy=size/2;
   var dpr = window.devicePixelRatio || 1;
   canvas.width = size*dpr; canvas.height = size*dpr;
   canvas.style.width = size+'px'; canvas.style.height = size+'px';
   ctx = canvas.getContext('2d'); ctx.scale(dpr,dpr);
   document.getElementById('wheelWrap').style.width = size+'px'; document.getElementById('wheelWrap').style.height = size+'px';
-
   currentAngle = 0; spinning = false;
   var btn = document.getElementById('spinBtn');
   btn.disabled = false; btn.textContent = '\u8f6c\uff01';
@@ -522,15 +531,13 @@ function initWheel() {
   document.getElementById('resultDesc').textContent = '\u70b9\u51fb\u6309\u94ae\u5f00\u59cb';
   drawWheel(0, scores);
   renderHistory();
-
   document.getElementById('spinBtn').onclick = function(){doSpin(scores)};
 }
 
 function drawWheel(angle, scores) {
   if(!ctx) return;
   var n = scores.length, seg = PI2x/n, s = wheelSize, cx = wheelCx, cy = wheelCy, r = wheelR;
-  var uc = selectedIndices.map(function(i){return COLORS[i]});
-  if (currentMode === 'live') { uc = COLORS; }
+  var uc = (currentMode === 'live') ? COLORS : selectedIndices.map(function(i){return COLORS[i]});
   ctx.clearRect(0,0,s,s);
   ctx.beginPath(); ctx.arc(cx,cy,r+3,0,PI2x); ctx.strokeStyle='rgba(255,215,0,0.15)'; ctx.lineWidth=3; ctx.stroke();
   for(var i=0;i<n;i++) {
@@ -604,14 +611,13 @@ function renderHistory() {
   title.textContent = '\u5386\u53f2\u8bb0\u5f55\uff08\u5171' + hist.length + '\u6b21\uff09';
   list.innerHTML = '';
   if (hist.length === 0) {
-    list.innerHTML = '<span style="color:#444;font-size:11px">\u8f6c\u52a8\u540e\u7ed3\u679c\u4f1a\u51fa\u73b0\u5728\u8fd9\u91cc</span>';
-    return;
+    list.innerHTML = '<span style="color:#444;font-size:11px">\u8f6c\u52a8\u540e\u7ed3\u679c\u4f1a\u51fa\u73b0\u5728\u8fd9\u91cc</span>'; return;
   }
   hist.forEach(function(h) {
     var el = document.createElement('div');
     el.className = 'hi';
-    var modeTag = (h.mode === '\u5b9e\u65f6') ? '\uD83C\uDFC6' : '\uD83C\uDFAF';
-    el.innerHTML = '<span>'+h.score+'</span><span class="hi-sub">'+modeTag+' '+h.mode+'</span>';
+    var tag = (h.mode === '\u5b9e\u65f6') ? '\uD83C\uDFC6' : '\uD83C\uDFAF';
+    el.innerHTML = '<span>'+h.score+'</span><span class="hi-sub">'+tag+' '+h.mode+'</span>';
     list.appendChild(el);
   });
 }
