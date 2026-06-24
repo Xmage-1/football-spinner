@@ -9,44 +9,102 @@
 body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-height:100vh;overflow-x:hidden}
 .view{display:none;flex-direction:column;align-items:center;min-height:100vh;padding:16px;background:linear-gradient(180deg,#0a1628,#1a2a4a)}
 .view.active{display:flex}
+
+/* ===== MODE SELECT ===== */
+.mode-title{font-size:26px;font-weight:bold;color:#ffd700;margin:30px 0 6px}
+.mode-sub{font-size:13px;color:#888;margin-bottom:24px}
+.mode-btns{display:flex;flex-direction:column;gap:14px;width:260px}
+.mode-btn{display:flex;flex-direction:column;align-items:center;padding:22px 16px;border-radius:14px;border:2px solid #2a3a5a;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;background:rgba(13,33,55,0.85)}
+.mode-btn:active{transform:scale(.97)}
+.mode-btn .icon{font-size:36px;margin-bottom:6px}
+.mode-btn .label{font-size:17px;font-weight:bold;color:#fff}
+.mode-btn .desc{font-size:11px;color:#888;margin-top:2px}
+.mode-btn.free{border-color:#2a3a5a}
+.mode-btn.free:active,.mode-btn.free.selected{border-color:#ffd700;background:rgba(255,215,0,0.06)}
+.mode-btn.live{border-color:#2a3a5a}
+.mode-btn.live:active,.mode-btn.live.selected{border-color:#4fc3f7;background:rgba(79,195,247,0.06)}
+.search-area{width:100%;max-width:400px;margin:18px auto 0;padding-top:16px;border-top:1px solid #1a2a4a}
+.search-area .sa-title{font-size:12px;color:#666;margin-bottom:8px;text-align:center}
+.search-row{display:flex;gap:8px;margin-bottom:10px}
+.search-row input[type=text]{flex:1;padding:0 12px;height:38px;border-radius:8px;border:1px solid #2a3a5a;background:rgba(13,33,55,0.8);color:#e0e0e0;font-size:14px;outline:none}
+.search-row input[type=text]:focus{border-color:#4fc3f7}
+.search-row input[type=date]{width:130px;padding:0 8px;height:38px;border-radius:8px;border:1px solid #2a3a5a;background:rgba(13,33,55,0.8);color:#e0e0e0;font-size:13px;outline:none;color-scheme:dark}
+.search-row input[type=date]:focus{border-color:#4fc3f7}
+.search-res{width:100%;max-width:400px;max-height:200px;overflow-y:auto}
+.search-res .sr-item{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;margin-bottom:4px;border-radius:8px;background:rgba(13,33,55,0.6);border:1px solid #1a2a4a;cursor:pointer;transition:all .1s}
+.search-res .sr-item:active{background:rgba(255,215,0,0.1);border-color:#ffd700}
+.search-res .sr-item .sr-info{flex:1;font-size:12px;line-height:1.4}
+.search-res .sr-item .sr-info .sr-teams{font-size:13px;font-weight:bold;color:#fff}
+.search-res .sr-item .sr-info .sr-meta{color:#888;font-size:10px}
+.search-res .sr-item .sr-badge{width:22px;height:22px;border-radius:50%;margin:0 3px;object-fit:contain}
+.search-res .sr-none{color:#555;font-size:12px;text-align:center;padding:10px}
+
+/* ===== SELECT VIEW (Free mode) ===== */
 .sel-header{text-align:center;margin-bottom:12px;width:100%}
-.sel-title{font-size:22px;font-weight:bold;color:#ffd700}
-.sel-sub{font-size:12px;color:#888;margin-top:4px}
-.sel-count{font-size:13px;color:#4fc3f7;margin-top:6px}
-.sel-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;width:100%;max-width:400px;margin-bottom:14px}
-.sel-item{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;border-radius:10px;background:rgba(13,33,55,0.85);border:2px solid #2a3a5a;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;user-select:none}
+.sel-title{font-size:20px;font-weight:bold;color:#ffd700}
+.sel-sub{font-size:11px;color:#888;margin-top:3px}
+.sel-count{font-size:12px;color:#4fc3f7;margin-top:4px}
+.sel-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;width:100%;max-width:400px;margin-bottom:12px}
+.sel-item{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7px 3px;border-radius:10px;background:rgba(13,33,55,0.85);border:2px solid #2a3a5a;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;user-select:none}
 .sel-item:active{transform:scale(.95)}
 .sel-item.checked{border-color:#ffd700;background:rgba(255,215,0,0.08)}
-.sel-item .color-dot{width:100%;height:4px;border-radius:2px;margin-bottom:5px}
+.sel-item .color-dot{width:100%;height:4px;border-radius:2px;margin-bottom:4px}
 .sel-item .sc{font-size:15px;font-weight:bold;color:#fff;line-height:1.3}
 .sel-item .dc{font-size:10px;color:#999;line-height:1.2}
-.sel-item .ck{position:absolute;top:4px;right:4px;width:16px;height:16px;border-radius:50%;border:2px solid #555;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .15s}
+.sel-item .ck{position:absolute;top:3px;right:3px;width:15px;height:15px;border-radius:50%;border:2px solid #555;display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;transition:all .15s}
 .sel-item.checked .ck{border-color:#ffd700;background:#ffd700;color:#0a1628;font-weight:bold}
-.sel-actions{display:flex;gap:10px;margin-bottom:12px}
-.sel-btn{padding:8px 18px;font-size:13px;border-radius:20px;border:1px solid #3a4a6a;background:rgba(13,33,55,0.8);color:#ccc;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s}
+.sel-actions{display:flex;gap:8px;margin-bottom:10px}
+.sel-btn{padding:6px 14px;font-size:12px;border-radius:20px;border:1px solid #3a4a6a;background:rgba(13,33,55,0.8);color:#ccc;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .sel-btn:active{background:#1a2a4a}
-.sel-gen{width:200px;height:44px;font-size:16px;font-weight:bold;border-radius:50px;border:none;background:linear-gradient(135deg,#ffd700,#ffaa00);color:#000;cursor:pointer;transition:opacity .2s;-webkit-tap-highlight-color:transparent}
+.sel-gen{width:180px;height:40px;font-size:15px;font-weight:bold;border-radius:50px;border:none;background:linear-gradient(135deg,#ffd700,#ffaa00);color:#000;cursor:pointer;transition:opacity .2s;-webkit-tap-highlight-color:transparent}
 .sel-gen:disabled{opacity:.4;cursor:not-allowed}
+
+/* ===== LIVE VIEW ===== */
 .top-bar{width:100%;max-width:420px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .back-btn{display:flex;align-items:center;gap:4px;font-size:13px;color:#888;cursor:pointer;padding:4px 8px;border-radius:6px;-webkit-tap-highlight-color:transparent}
 .back-btn:active{background:rgba(255,255,255,.05)}
 .back-btn svg{width:16px;height:16px;fill:#888}
+.live-title{font-size:17px;font-weight:bold;color:#ffd700}
+.live-controls{width:100%;max-width:400px;display:flex;gap:8px;margin:4px 0 10px}
+.live-controls input[type=date]{flex:1;padding:0 10px;height:36px;border-radius:8px;border:1px solid #2a3a5a;background:rgba(13,33,55,0.8);color:#e0e0e0;font-size:13px;outline:none;color-scheme:dark}
+.live-controls input[type=date]:focus{border-color:#4fc3f7}
+.live-controls .lc-btn{padding:0 14px;height:36px;border-radius:8px;border:1px solid #3a4a6a;background:rgba(13,33,55,0.8);color:#aaa;cursor:pointer;font-size:12px;transition:all .1s}
+.live-controls .lc-btn:active{background:#1a2a4a}
+.match-list{width:100%;max-width:400px;overflow-y:auto;padding-bottom:10px}
+.match-card{display:flex;align-items:center;padding:10px 12px;margin-bottom:6px;border-radius:12px;background:rgba(13,33,55,0.85);border:1px solid #2a3a5a;cursor:pointer;transition:all .1s}
+.match-card:active{background:rgba(79,195,247,0.08);border-color:#4fc3f7}
+.match-card .mc-badges{display:flex;flex-direction:column;align-items:center;gap:2px;margin-right:10px}
+.match-card .mc-badges img{width:28px;height:28px;border-radius:50%;object-fit:contain}
+.match-card .mc-info{flex:1}
+.match-card .mc-info .mc-teams{font-size:14px;font-weight:bold;color:#fff}
+.match-card .mc-info .mc-meta{font-size:11px;color:#888;margin-top:2px}
+.match-card .mc-info .mc-meta .tag{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10px;margin-right:4px;background:#1a2a4a;color:#4fc3f7}
+.match-card .mc-arrow{color:#555;font-size:18px;margin-left:6px}
+.match-card.ft{border-color:#3a5a3a}
+.match-card.ft .mc-teams{color:#aaa}
+.match-card.ft .mc-score{font-size:18px;font-weight:bold;color:#4fc3f7;margin-left:8px}
+.loading{color:#888;font-size:13px;text-align:center;padding:30px 0}
+.loading .spinner{width:30px;height:30px;border:3px solid #1a2a4a;border-top:3px solid #ffd700;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== WHEEL VIEW ===== */
 .wheel-title{font-size:18px;font-weight:bold;color:#ffd700}
 .wheel-sub{font-size:11px;color:#666;margin-bottom:4px}
+.match-banner{width:100%;max-width:380px;text-align:center;font-size:13px;color:#4fc3f7;padding:4px 10px;margin-bottom:4px;background:rgba(79,195,247,0.06);border-radius:6px;border:1px solid rgba(79,195,247,0.15)}
 .wheel-wrap{position:relative;margin:4px auto}
 .wheel-wrap canvas{display:block;border-radius:50%}
 .pointer{position:absolute;top:-5px;left:50%;transform:translateX(-50%);z-index:10;width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #ffd700;filter:drop-shadow(0 0 4px rgba(255,215,0,.4))}
 .result-box{width:260px;margin:8px auto;padding:10px 12px;border-radius:12px;background:rgba(13,33,55,0.9);border:1px solid #2a3a5a;display:flex;flex-direction:column;align-items:center}
 .rl{font-size:11px;color:#888}
-.rs{font-size:36px;font-weight:bold;color:#ffd700;text-align:center;line-height:1.2}
-.rd{font-size:13px;color:#aaa}
-.spin-btn{width:200px;height:44px;line-height:44px;margin:8px auto;font-size:18px;font-weight:bold;border-radius:50px;background:linear-gradient(135deg,#ffd700,#ffaa00);color:#000;border:none;text-align:center;cursor:pointer;transition:opacity .2s;-webkit-tap-highlight-color:transparent}
+.rs{font-size:34px;font-weight:bold;color:#ffd700;text-align:center;line-height:1.2}
+.rd{font-size:12px;color:#aaa}
+.spin-btn{width:190px;height:42px;line-height:42px;margin:8px auto;font-size:17px;font-weight:bold;border-radius:50px;background:linear-gradient(135deg,#ffd700,#ffaa00);color:#000;border:none;text-align:center;cursor:pointer;transition:opacity .2s;-webkit-tap-highlight-color:transparent}
 .spin-btn:disabled{opacity:.6;cursor:not-allowed}
-.history-box{width:280px;margin:10px auto;padding:8px 10px;border-radius:8px;background:rgba(10,21,32,0.9);border:1px solid #2a3a5a;min-height:30px}
-.ht{font-size:11px;color:#888;margin-bottom:6px;display:block}
-.hs{display:flex;flex-wrap:wrap;gap:4px;max-height:100px;overflow-y:auto;min-height:20px}
-.hi{display:inline-flex;flex-direction:column;align-items:center;padding:4px 10px;background:#1a2a4a;border-radius:4px;color:#4fc3f7;font-size:11px;line-height:1.3}
-.hi .hi-conf{font-size:8px;color:#666}
+.history-box{width:280px;margin:4px auto 10px;padding:8px 10px;border-radius:8px;background:rgba(10,21,32,0.9);border:1px solid #2a3a5a}
+.ht{font-size:11px;color:#888;margin-bottom:4px;display:block}
+.hs{display:flex;flex-wrap:wrap;gap:4px;max-height:80px;overflow-y:auto}
+.hi{display:inline-flex;flex-direction:column;align-items:center;padding:3px 8px;background:#1a2a4a;border-radius:4px;color:#4fc3f7;font-size:11px;line-height:1.3;min-width:36px}
+.hi .hi-sub{font-size:9px;color:#666;margin-top:1px}
 .hi-new{animation:fadeIn .3s}
 @keyframes fadeIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
 @media(max-width:360px){
@@ -59,30 +117,81 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
 </style>
 </head>
 <body>
-<div id="selectView" class="view active">
+
+<!-- ===== VIEW 0: MODE SELECT ===== -->
+<div id="modeView" class="view active">
+  <div class="mode-title">足球转盘</div>
+  <div class="mode-sub">选择模式开始</div>
+  <div class="mode-btns">
+    <div class="mode-btn free" onclick="selectMode('free')">
+      <div class="icon">🎯</div>
+      <div class="label">自由模式</div>
+      <div class="desc">自由勾选比分，生成专属转盘</div>
+    </div>
+    <div class="mode-btn live" onclick="selectMode('live')">
+      <div class="icon">🏆</div>
+      <div class="label">实时赛事</div>
+      <div class="desc">选择当天比赛，生成赛事转盘</div>
+    </div>
+  </div>
+  <div class="search-area">
+    <div class="sa-title">🔍 快速搜索队伍，直接开始</div>
+    <div class="search-row">
+      <input type="text" id="searchInput" placeholder="输入队伍名（中/英文）..." oninput="onSearchInput()">
+      <input type="date" id="searchDate" onchange="onSearchDate()">
+    </div>
+    <div class="search-res" id="searchResults"></div>
+  </div>
+</div>
+
+<!-- ===== VIEW 1: SCORE SELECT ===== -->
+<div id="selectView" class="view">
+  <div class="top-bar">
+    <div class="back-btn" onclick="showView('modeView')">
+      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>返回
+    </div>
+    <div style="font-size:14px;color:#ffd700;font-weight:bold">自由模式</div>
+    <div style="width:50px"></div>
+  </div>
   <div class="sel-header">
-    <div class="sel-title">足球转盘</div>
-    <div class="sel-sub">勾选想要的比分，至少选2个</div>
     <div class="sel-count" id="selCount">已选 20/20</div>
+    <div class="sel-sub">勾选想要的比分，至少选2个</div>
   </div>
   <div class="sel-grid" id="selGrid"></div>
   <div class="sel-actions">
     <button class="sel-btn" id="selAllBtn">全选</button>
     <button class="sel-btn" id="selNoneBtn">取消全选</button>
   </div>
-  <button class="sel-gen" id="selGenBtn" disabled>生成转盘</button>
+  <button class="sel-gen" id="selGenBtn" disabled>生成转盘 →</button>
 </div>
 
+<!-- ===== VIEW 2: LIVE MATCH LIST ===== -->
+<div id="liveView" class="view">
+  <div class="top-bar">
+    <div class="back-btn" onclick="showView('modeView')">
+      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>返回
+    </div>
+    <div class="live-title">实时赛事</div>
+    <div style="width:50px"></div>
+  </div>
+  <div class="live-controls">
+    <input type="date" id="liveDate" onchange="onLiveDateChange()">
+    <button class="lc-btn" onclick="loadMatches()">刷新</button>
+  </div>
+  <div class="match-list" id="matchList"></div>
+</div>
+
+<!-- ===== VIEW 3: WHEEL ===== -->
 <div id="wheelView" class="view">
   <div class="top-bar">
-    <div class="back-btn" id="backBtn">
-      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-      重新选择
+    <div class="back-btn" id="backFromWheelBtn">
+      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>重新选择
     </div>
     <div class="wheel-title">足球转盘</div>
     <div style="width:70px"></div>
   </div>
   <div class="wheel-sub" id="wheelConfig">20项比分</div>
+  <div class="match-banner" id="matchBanner" style="display:none"></div>
   <div class="wheel-wrap" id="wheelWrap">
     <div class="pointer"></div>
     <canvas id="wheelCanvas"></canvas>
@@ -95,11 +204,12 @@ body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-h
   <button class="spin-btn" id="spinBtn">转！</button>
   <div class="history-box" id="historyBox">
     <span class="ht" id="historyTitle">历史记录（共0次）</span>
-    <div class="hs" id="historyList"><span style="color:#444;font-size:11px">转动转盘后结果会出现在这里</span></div>
+    <div class="hs" id="historyList"><span style="color:#444;font-size:11px">转动后结果会出现在这里</span></div>
   </div>
 </div>
 
 <script>
+// ====== DATA ======
 var ALL_SCORES = [
   {s:"1-0", d:"小胜"},{s:"2-0", d:"稳健胜"},{s:"2-1", d:"险胜"},
   {s:"3-0", d:"大胜"},{s:"3-1", d:"压制胜"},{s:"4-0", d:"完胜"},
@@ -115,13 +225,152 @@ var COLORS = [
   "#fd79a8","#00cec9","#d63031","#e17055","#fdcb6e",
   "#55a3e8","#a29bfe","#fab1a0","#81ecec","#ff7675"
 ];
-var selectedIndices = ALL_SCORES.map(function(_,i){return i});
-var history = [];
-var PI2 = 2 * Math.PI;
-var currentAngle = 0, spinning = false, animId = null;
-var canvas = null, ctx = null, wheelSize = 300, wheelR = 145, wheelCx = 150, wheelCy = 150;
 
-// ====== 选择页 ======
+// 常用国家队中文名映射
+var CN_NAMES = {
+  "Switzerland":"瑞士","Canada":"加拿大","Brazil":"巴西","Argentina":"阿根廷",
+  "France":"法国","Germany":"德国","Spain":"西班牙","England":"英格兰",
+  "Netherlands":"荷兰","Portugal":"葡萄牙","Italy":"意大利","Croatia":"克罗地亚",
+  "Belgium":"比利时","Morocco":"摩洛哥","Haiti":"海地","Scotland":"苏格兰",
+  "USA":"美国","Mexico":"墨西哥","Japan":"日本","South Korea":"韩国",
+  "Australia":"澳大利亚","Saudi Arabia":"沙特","Iran":"伊朗","Cameroon":"喀麦隆",
+  "Senegal":"塞内加尔","Ghana":"加纳","Tunisia":"突尼斯","Nigeria":"尼日利亚",
+  "Uruguay":"乌拉圭","Colombia":"哥伦比亚","Ecuador":"厄瓜多尔","Peru":"秘鲁",
+  "Denmark":"丹麦","Poland":"波兰","Serbia":"塞尔维亚","Wales":"威尔士",
+  "Qatar":"卡塔尔","Costa Rica":"哥斯达黎加"
+};
+
+var PI2 = 2 * Math.PI;
+var API_BASE = "https://www.thesportsdb.com/api/v1/json/3";
+
+// ====== STATE ======
+var currentMode = null; // 'free' | 'live'
+var selectedIndices = ALL_SCORES.map(function(_,i){return i});
+var matchHistory = []; // for live mode
+var freeHistory = [];  // for free mode
+var currentDateStr = ""; // today
+var currentMatches = [];
+var selectedMatch = null; // {homeTeam, awayTeam, league, group, time, homeBadge, awayBadge, id}
+var PI2x = 2 * Math.PI, currentAngle = 0, spinning = false, animId = null;
+var canvas, ctx, wheelSize, wheelR, wheelCx, wheelCy;
+
+// ====== HELPERS ======
+function todayStr() {
+  var d = new Date();
+  var m = (d.getMonth()+1); if(m<10)m='0'+m;
+  var day = d.getDate(); if(day<10)day='0'+day;
+  return d.getFullYear()+'-'+m+'-'+day;
+}
+
+function showView(id) {
+  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+}
+
+function getCnName(en) {
+  return CN_NAMES[en] || en;
+}
+
+// ====== MODE SELECTION ======
+function selectMode(mode) {
+  currentMode = mode;
+  if (mode === 'free') {
+    showView('selectView');
+    renderSelect();
+  } else {
+    showView('liveView');
+    document.getElementById('liveDate').value = currentDateStr || todayStr();
+    loadMatches();
+  }
+}
+
+function backFromWheel() {
+  if (animId) { cancelAnimationFrame(animId); animId = null; }
+  spinning = false;
+  if (currentMode === 'live') {
+    showView('liveView');
+  } else {
+    showView('selectView');
+  }
+}
+document.getElementById('backFromWheelBtn').onclick = backFromWheel;
+
+// ====== SEARCH ======
+function onSearchInput() {
+  var q = document.getElementById('searchInput').value.trim().toLowerCase();
+  var date = document.getElementById('searchDate').value || todayStr();
+  if (q.length < 1) { document.getElementById('searchResults').innerHTML = ''; return; }
+  fetchAndShowSearch(q, date);
+}
+
+function onSearchDate() {
+  var q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (q.length < 1) return;
+  fetchAndShowSearch(q, document.getElementById('searchDate').value);
+}
+
+function fetchAndShowSearch(q, date) {
+  var res = document.getElementById('searchResults');
+  res.innerHTML = '<div class="loading"><div class="spinner"></div>搜索中...</div>';
+  var url = API_BASE + '/eventsday.php?d=' + date + '&s=Soccer';
+  var xhr = new XMLHttpRequest();
+  xhr.timeout = 8000;
+  xhr.onload = function() {
+    try {
+      var data = JSON.parse(xhr.responseText);
+      var evts = data.events || [];
+      var filtered = [];
+      evts.forEach(function(e) {
+        var home = (e.strHomeTeam||'').toLowerCase();
+        var away = (e.strAwayTeam||'').toLowerCase();
+        var homeCn = (CN_NAMES[e.strHomeTeam]||'').toLowerCase();
+        var awayCn = (CN_NAMES[e.strAwayTeam]||'').toLowerCase();
+        if (home.indexOf(q)>=0 || away.indexOf(q)>=0 || homeCn.indexOf(q)>=0 || awayCn.indexOf(q)>=0) {
+          filtered.push(e);
+        }
+      });
+      renderSearchResults(filtered, date, res);
+    } catch(e) {
+      res.innerHTML = '<div class="sr-none">搜索出错，请重试</div>';
+    }
+  };
+  xhr.onerror = xhr.ontimeout = function() {
+    res.innerHTML = '<div class="sr-none">搜索超时，请重试</div>';
+  };
+  xhr.open('GET', url, true);
+  xhr.send();
+}
+
+function renderSearchResults(evts, date, container) {
+  if (!evts || evts.length === 0) {
+    container.innerHTML = '<div class="sr-none">该日期无匹配赛事</div>';
+    return;
+  }
+  var html = '';
+  evts.forEach(function(e) {
+    var league = e.strLeague || '';
+    var group = e.strGroup || '';
+    var time = e.strTime || '';
+    var status = e.strStatus || '';
+    var home = e.strHomeTeam || '?', away = e.strAwayTeam || '?';
+    var label = getCnName(home) + ' vs ' + getCnName(away);
+    html += '<div class="sr-item" onclick="quickGoMatch(\''+ escapeStr(home) + '\',\''+ escapeStr(away) + '\',\''+ escapeStr(league) + '\',\''+ escapeStr(group) + '\',\''+ escapeStr(time) + '\',\''+ escapeStr(status) + '\')">';
+    html += '<div class="sr-info"><div class="sr-teams">'+label+'</div><div class="sr-meta">'+league+' '+(group?'| '+group+'组 ':'')+'| '+time+' | '+status+'</div></div>';
+    html += '<span style="color:#ffd700;font-size:16px">→</span></div>';
+  });
+  container.innerHTML = html;
+}
+
+function escapeStr(s) { return (s||'').replace(/'/g,"\\'"); }
+
+function quickGoMatch(home, away, league, group, time, status) {
+  currentMode = 'live';
+  selectedMatch = {homeTeam:home, awayTeam:away, league:league, group:group, time:time, status:status};
+  showView('wheelView');
+  initWheel();
+}
+
+// ====== SELECT VIEW (Free mode) ======
 function renderSelect() {
   var g = document.getElementById('selGrid');
   g.innerHTML = '';
@@ -137,209 +386,213 @@ function renderSelect() {
   document.getElementById('selCount').textContent = '\u5df2\u9009 '+selectedIndices.length+'/20';
   document.getElementById('selGenBtn').disabled = selectedIndices.length < 2;
 }
-
 function toggleSelect(i) {
   var idx = selectedIndices.indexOf(i);
-  if(idx >= 0) {
-    if(selectedIndices.length <= 2) return;
-    selectedIndices.splice(idx,1);
-  } else {
-    selectedIndices.push(i);
-    selectedIndices.sort(function(a,b){return a-b});
-  }
+  if (idx >= 0) { if(selectedIndices.length<=2)return; selectedIndices.splice(idx,1); }
+  else { selectedIndices.push(i); selectedIndices.sort(function(a,b){return a-b}); }
   renderSelect();
 }
+document.getElementById('selAllBtn').addEventListener('click',function(){selectedIndices=ALL_SCORES.map(function(_,i){return i});renderSelect()});
+document.getElementById('selNoneBtn').addEventListener('click',function(){selectedIndices=[0,1];renderSelect()});
+document.getElementById('selGenBtn').addEventListener('click',function(){if(selectedIndices.length<2)return;currentMode='free';selectedMatch=null;showView('wheelView');initWheel()});
 
-document.getElementById('selAllBtn').addEventListener('click',function(){
-  selectedIndices = ALL_SCORES.map(function(_,i){return i});
-  renderSelect();
-});
+// ====== LIVE VIEW ======
+function onLiveDateChange() {
+  loadMatches();
+}
 
-document.getElementById('selNoneBtn').addEventListener('click',function(){
-  selectedIndices = [0,1];
-  renderSelect();
-});
+function loadMatches() {
+  var date = document.getElementById('liveDate').value || todayStr();
+  var list = document.getElementById('matchList');
+  list.innerHTML = '<div class="loading"><div class="spinner"></div>加载赛事中...</div>';
+  currentDateStr = date;
+  var url = API_BASE + '/eventsday.php?d=' + date + '&s=Soccer';
+  var xhr = new XMLHttpRequest();
+  xhr.timeout = 10000;
+  xhr.onload = function() {
+    try {
+      var data = JSON.parse(xhr.responseText);
+      var evts = data.events || [];
+      // 筛选国际赛事（World Cup / Euro / Cup）
+      var filtered = evts.filter(function(e) {
+        var l = (e.strLeague||'').toLowerCase();
+        return l.indexOf('world cup')>=0 || l.indexOf('euro')>=0 || l.indexOf('cup')>=0 || l.indexOf('qualifier')>=0;
+      });
+      if (filtered.length === 0) filtered = evts; // fallback: show all
+      currentMatches = filtered;
+      renderMatches(filtered);
+    } catch(e) {
+      list.innerHTML = '<div class="loading" style="color:#e74c3c">加载失败，请下拉刷新重试</div>';
+    }
+  };
+  xhr.onerror = xhr.ontimeout = function() {
+    list.innerHTML = '<div class="loading" style="color:#e74c3c">网络超时，请下拉刷新重试</div>';
+  };
+  xhr.open('GET', url, true);
+  xhr.send();
+}
 
-document.getElementById('selGenBtn').addEventListener('click',function(){
-  if(selectedIndices.length < 2) return;
-  switchToWheel();
-});
+function renderMatches(evts) {
+  var list = document.getElementById('matchList');
+  if (!evts || evts.length === 0) {
+    list.innerHTML = '<div class="loading" style="color:#666">该日期暂无国际赛事</div>';
+    return;
+  }
+  var html = '';
+  evts.forEach(function(e) {
+    var home = e.strHomeTeam||'?', away = e.strAwayTeam||'?';
+    var league = e.strLeague||'', group = e.strGroup||'', time = e.strTime||'';
+    var status = e.strStatus||'';
+    var homeBadge = e.strHomeTeamBadge||'', awayBadge = e.strAwayTeamBadge||'';
+    var isFT = status === 'FT';
+    var hs = e.intHomeScore, as = e.intAwayScore;
+    var label = getCnName(home) + ' vs ' + getCnName(away);
+    var cls = isFT ? 'match-card ft' : 'match-card';
+    html += '<div class="'+cls+'" onclick="selectMatch(\''+escapeStr(home)+'\',\''+escapeStr(away)+'\',\''+escapeStr(league)+'\',\''+escapeStr(group)+'\',\''+escapeStr(time)+'\',\''+escapeStr(status)+'\')">';
+    html += '<div class="mc-badges">';
+    if (homeBadge) html += '<img src="'+homeBadge+'" onerror="this.style.display=\'none\'">';
+    if (awayBadge) html += '<img src="'+awayBadge+'" onerror="this.style.display=\'none\'">';
+    html += '</div>';
+    html += '<div class="mc-info"><div class="mc-teams">'+label+'</div><div class="mc-meta">';
+    html += '<span class="tag">'+league+'</span>';
+    if (group) html += '<span class="tag">'+group+'组</span>';
+    html += time + (isFT?' (已结束)':'');
+    if (isFT && hs!==null && as!==null) html += ' | 比分 ' + hs + '-' + as;
+    html += '</div></div>';
+    if (isFT && hs!==null && as!==null) {
+      html += '<div class="mc-score">'+hs+'-'+as+'</div>';
+    } else {
+      html += '<div class="mc-arrow">→</div>';
+    }
+    html += '</div>';
+  });
+  list.innerHTML = html;
+}
 
-// ====== 转盘页 ======
-function switchToWheel() {
-  document.getElementById('selectView').classList.remove('active');
-  document.getElementById('wheelView').classList.add('active');
+function selectMatch(home, away, league, group, time, status) {
+  currentMode = 'live';
+  selectedMatch = {homeTeam:home, awayTeam:away, league:league, group:group, time:time, status:status};
+  showView('wheelView');
   initWheel();
 }
 
-document.getElementById('backBtn').addEventListener('click',function(){
-  if(animId) { cancelAnimationFrame(animId); animId = null; }
-  spinning = false;
-  document.getElementById('wheelView').classList.remove('active');
-  document.getElementById('selectView').classList.add('active');
-});
-
-// Spin button - set up once
-document.getElementById('spinBtn').addEventListener('click', function(){
-  if(spinning) return;
-  doSpin();
-});
-
+// ====== WHEEL ======
 function initWheel() {
-  var sel = selectedIndices.map(function(i){return ALL_SCORES[i]});
-  var n = sel.length;
-  document.getElementById('wheelConfig').textContent = n + '\u9879\u6bd4\u5206';
+  var scores, n;
+  if (currentMode === 'live' && selectedMatch) {
+    // 实时赛事模式：使用全部20个比分
+    scores = ALL_SCORES;
+  } else {
+    scores = selectedIndices.map(function(i){return ALL_SCORES[i]});
+  }
+  n = scores.length;
+
+  var configText = currentMode === 'live' && selectedMatch
+    ? getCnName(selectedMatch.homeTeam)+' vs '+getCnName(selectedMatch.awayTeam)+' | '+n+'\u9879\u6bd4\u5206'
+    : n+'\u9879\u6bd4\u5206';
+  document.getElementById('wheelConfig').textContent = configText;
+
+  // 赛事Banner
+  var banner = document.getElementById('matchBanner');
+  if (currentMode === 'live' && selectedMatch) {
+    banner.style.display = 'block';
+    var league = selectedMatch.league||'';
+    var group = selectedMatch.group||'';
+    var time = selectedMatch.time||'';
+    banner.textContent = '\uD83C\uDFC6 ' + getCnName(selectedMatch.homeTeam)+' vs '+getCnName(selectedMatch.awayTeam)
+      + (league?' | '+league:'') + (group?' | '+group+'\u7ec4':'') + ' | '+time;
+  } else {
+    banner.style.display = 'none';
+  }
 
   canvas = document.getElementById('wheelCanvas');
   var vw = Math.min(window.innerWidth - 32, 380);
   var size = Math.max(240, vw);
-  wheelSize = size;
-  wheelR = size * 0.48;
-  wheelCx = size / 2;
-  wheelCy = size / 2;
-
+  wheelSize = size; wheelR = size * 0.48; wheelCx = size/2; wheelCy = size/2;
   var dpr = window.devicePixelRatio || 1;
-  canvas.width = size * dpr;
-  canvas.height = size * dpr;
-  canvas.style.width = size + 'px';
-  canvas.style.height = size + 'px';
-  ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr);
+  canvas.width = size*dpr; canvas.height = size*dpr;
+  canvas.style.width = size+'px'; canvas.style.height = size+'px';
+  ctx = canvas.getContext('2d'); ctx.scale(dpr,dpr);
+  document.getElementById('wheelWrap').style.width = size+'px'; document.getElementById('wheelWrap').style.height = size+'px';
 
-  document.getElementById('wheelWrap').style.width = size + 'px';
-  document.getElementById('wheelWrap').style.height = size + 'px';
-
-  currentAngle = 0;
-  spinning = false;
+  currentAngle = 0; spinning = false;
   var btn = document.getElementById('spinBtn');
-  btn.disabled = false;
-  btn.textContent = '\u8f6c\uff01';
-
+  btn.disabled = false; btn.textContent = '\u8f6c\uff01';
   document.getElementById('resultScore').textContent = '???';
   document.getElementById('resultDesc').textContent = '\u70b9\u51fb\u6309\u94ae\u5f00\u59cb';
+  drawWheel(0, scores);
+  renderHistory();
 
-  drawWheel(0, sel);
+  document.getElementById('spinBtn').onclick = function(){doSpin(scores)};
 }
 
 function drawWheel(angle, scores) {
   if(!ctx) return;
-  var n = scores.length;
-  var seg = PI2 / n;
-  var s = wheelSize, cx = wheelCx, cy = wheelCy, r = wheelR;
+  var n = scores.length, seg = PI2x/n, s = wheelSize, cx = wheelCx, cy = wheelCy, r = wheelR;
   var uc = selectedIndices.map(function(i){return COLORS[i]});
-
-  ctx.clearRect(0, 0, s, s);
-
-  ctx.beginPath();
-  ctx.arc(cx, cy, r + 3, 0, PI2);
-  ctx.strokeStyle = 'rgba(255,215,0,0.15)';
-  ctx.lineWidth = 3;
-  ctx.stroke();
-
-  for(var i=0; i<n; i++) {
-    var sa = angle + i*seg;
-    var ea = sa + seg;
-
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, r, sa, ea);
-    ctx.closePath();
-    ctx.fillStyle = uc[i];
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    var ta = sa + seg/2;
-    var tr = r * 0.6;
-    var sf = Math.max(10, Math.min(16, 170/n));
-    var df = Math.max(7, Math.min(11, 110/n));
-
-    ctx.save();
-    ctx.translate(cx + Math.cos(ta)*tr, cy + Math.sin(ta)*tr);
-    ctx.rotate(ta + Math.PI/2);
-    ctx.fillStyle = '#fff';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.font = 'bold ' + sf + 'px sans-serif';
-    ctx.shadowColor = 'rgba(0,0,0,0.4)';
-    ctx.shadowBlur = 2;
-    ctx.fillText(scores[i].s, 0, -5);
-    ctx.font = df + 'px sans-serif';
-    ctx.shadowBlur = 0;
-    ctx.fillText(scores[i].d, 0, 8);
+  if (currentMode === 'live') { uc = COLORS; }
+  ctx.clearRect(0,0,s,s);
+  ctx.beginPath(); ctx.arc(cx,cy,r+3,0,PI2x); ctx.strokeStyle='rgba(255,215,0,0.15)'; ctx.lineWidth=3; ctx.stroke();
+  for(var i=0;i<n;i++) {
+    var sa=angle+i*seg, ea=sa+seg;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,sa,ea); ctx.closePath();
+    ctx.fillStyle=uc[i]; ctx.fill(); ctx.strokeStyle='rgba(255,255,255,0.12)'; ctx.lineWidth=1; ctx.stroke();
+    var ta=sa+seg/2, tr=r*0.6, sf=Math.max(10,Math.min(16,170/n)), df=Math.max(7,Math.min(11,110/n));
+    ctx.save(); ctx.translate(cx+Math.cos(ta)*tr,cy+Math.sin(ta)*tr); ctx.rotate(ta+Math.PI/2);
+    ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.font='bold '+sf+'px sans-serif'; ctx.shadowColor='rgba(0,0,0,0.4)'; ctx.shadowBlur=2;
+    ctx.fillText(scores[i].s,0,-5);
+    ctx.font=df+'px sans-serif'; ctx.shadowBlur=0; ctx.fillText(scores[i].d,0,8);
     ctx.restore();
   }
-
-  ctx.beginPath();
-  ctx.arc(cx, cy, Math.min(18, r*0.12), 0, PI2);
-  ctx.fillStyle = '#0a1628';
-  ctx.fill();
-  ctx.strokeStyle = '#ffd700';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  ctx.fillStyle = '#ffd700';
-  ctx.font = 'bold ' + Math.min(14, r*0.09) + 'px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('\u26bd', cx, cy);
+  ctx.beginPath(); ctx.arc(cx,cy,Math.min(18,r*0.12),0,PI2x);
+  ctx.fillStyle='#0a1628'; ctx.fill(); ctx.strokeStyle='#ffd700'; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle='#ffd700'; ctx.font='bold '+Math.min(14,r*0.09)+'px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('\u26bd',cx,cy);
 }
 
 function getResult(totalAngle, scoreCount) {
-  var seg = PI2 / scoreCount;
-  var norm = ((totalAngle % PI2) + PI2) % PI2;
-  var off = ((-Math.PI/2 - norm) % PI2 + PI2) % PI2;
+  var seg = PI2x / scoreCount;
+  var norm = ((totalAngle % PI2x) + PI2x) % PI2x;
+  var off = ((-Math.PI/2 - norm) % PI2x + PI2x) % PI2x;
   return Math.floor(off / seg) % scoreCount;
 }
 
-function doSpin() {
+function doSpin(scores) {
   if(spinning) return;
   spinning = true;
-
   var btn = document.getElementById('spinBtn');
-  btn.disabled = true;
-  btn.textContent = '\u65cb\u8f6c\u4e2d...';
-
-  // Get current scores
-  var scores = selectedIndices.map(function(i){return ALL_SCORES[i]});
-  var n = scores.length;
-  var seg = PI2 / n;
-  var startAngle = currentAngle;
-  var targetAngle = startAngle + PI2 * (5 + Math.random() * 3);
-  var steps = 0;
-  var maxSteps = 50;
-
+  btn.disabled = true; btn.textContent = '\u65cb\u8f6c\u4e2d...';
+  var n = scores.length, seg = PI2x/n, startAngle = currentAngle;
+  var targetAngle = startAngle + PI2x * (5 + Math.random() * 3);
+  var steps = 0, maxSteps = 50;
   function animate() {
     steps++;
-    var p = Math.min(steps / maxSteps, 1);
-    var ease = 1 - Math.pow(1 - p, 3);
+    var p = Math.min(steps/maxSteps, 1), ease = 1 - Math.pow(1-p, 3);
     var a = startAngle + (targetAngle - startAngle) * ease;
     drawWheel(a, scores);
-
-    if(steps < maxSteps) {
-      animId = requestAnimationFrame(animate);
-    } else {
-      // Spin complete
+    if(steps < maxSteps) { animId = requestAnimationFrame(animate); }
+    else {
       currentAngle = targetAngle;
-      var idx = getResult(targetAngle, n);
+      var idx = getResult(targetAngle, n), r = scores[idx];
       try {
-        var r = scores[idx];
-        document.getElementById('resultScore').textContent = r.s;
-        document.getElementById('resultDesc').textContent = r.d;
-        var config = n + '\u9879\u6bd4\u5206';
-        history.unshift({score: r.s, desc: r.d, config: config, time: new Date().toLocaleTimeString()});
-        if(history.length > 30) history.pop();
+        var displayScore, displayDesc;
+        if (currentMode === 'live' && selectedMatch) {
+          displayScore = getCnName(selectedMatch.homeTeam) + ' ' + r.s + ' ' + getCnName(selectedMatch.awayTeam);
+          displayDesc = r.d;
+        } else {
+          displayScore = r.s; displayDesc = r.d;
+        }
+        document.getElementById('resultScore').textContent = displayScore;
+        document.getElementById('resultDesc').textContent = displayDesc;
+        var hist = (currentMode === 'live') ? matchHistory : freeHistory;
+        var modeLabel = (currentMode === 'live') ? '\u5b9e\u65f6' : '\u81ea\u7531';
+        hist.unshift({score:displayScore, desc:r.s, mode:modeLabel, time:new Date().toLocaleTimeString()});
+        if(hist.length > 30) hist.pop();
         renderHistory();
-      } catch(e) {
-        console.error('Spin result error:', e);
-      }
-      spinning = false;
-      btn.disabled = false;
-      btn.textContent = '\u8f6c\uff01';
+      } catch(e) { console.error(e); }
+      spinning = false; btn.disabled = false; btn.textContent = '\u8f6c\uff01';
     }
   }
-
   if(animId) { cancelAnimationFrame(animId); animId = null; }
   animate();
 }
@@ -347,19 +600,26 @@ function doSpin() {
 function renderHistory() {
   var title = document.getElementById('historyTitle');
   var list = document.getElementById('historyList');
-  title.textContent = '\u5386\u53f2\u8bb0\u5f55\uff08\u5171' + history.length + '\u6b21\uff09';
+  var hist = (currentMode === 'live') ? matchHistory : freeHistory;
+  title.textContent = '\u5386\u53f2\u8bb0\u5f55\uff08\u5171' + hist.length + '\u6b21\uff09';
   list.innerHTML = '';
-  history.forEach(function(h){
+  if (hist.length === 0) {
+    list.innerHTML = '<span style="color:#444;font-size:11px">\u8f6c\u52a8\u540e\u7ed3\u679c\u4f1a\u51fa\u73b0\u5728\u8fd9\u91cc</span>';
+    return;
+  }
+  hist.forEach(function(h) {
     var el = document.createElement('div');
     el.className = 'hi';
-    el.innerHTML = '<span>' + h.score + '</span><span class="hi-conf">' + h.config + '</span>';
+    var modeTag = (h.mode === '\u5b9e\u65f6') ? '\uD83C\uDFC6' : '\uD83C\uDFAF';
+    el.innerHTML = '<span>'+h.score+'</span><span class="hi-sub">'+modeTag+' '+h.mode+'</span>';
     list.appendChild(el);
   });
-  // Scroll to top to show newest
-  list.scrollTop = 0;
 }
 
-renderSelect();
+// ====== INIT ======
+currentDateStr = todayStr();
+document.getElementById('searchDate').value = currentDateStr;
+document.getElementById('liveDate').value = currentDateStr;
 </script>
 </body>
 </html>
