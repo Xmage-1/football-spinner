@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -336,10 +336,10 @@ function searchMatches(query, date) {
   }
   var filtered = [];
   allMatches.forEach(function(m) {
-    var home = (m.homeTeam.name||'').toLowerCase();
-    var away = (m.awayTeam.name||'').toLowerCase();
-    var hcn = (CN_NAMES[m.homeTeam.name]||'').toLowerCase();
-    var acn = (CN_NAMES[m.awayTeam.name]||'').toLowerCase();
+    var home = ((m.homeTeam&&m.homeTeam.name)||'').toLowerCase();
+    var away = ((m.awayTeam&&m.awayTeam.name)||'').toLowerCase();
+    var hcn = (CN_NAMES[(m.homeTeam&&m.homeTeam.name)||'']||'').toLowerCase();
+    var acn = (CN_NAMES[(m.awayTeam&&m.awayTeam.name)||'']||'').toLowerCase();
     var matchDate = formatUtcDate(m.utcDate);
     if (date && matchDate !== date) return;
     if (home.indexOf(query)>=0 || away.indexOf(query)>=0 || hcn.indexOf(query)>=0 || acn.indexOf(query)>=0) {
@@ -355,7 +355,7 @@ function renderSearchResults(evts, container) {
   }
   var html = '';
   evts.forEach(function(m) {
-    var h = m.homeTeam.name||'?', a = m.awayTeam.name||'?';
+    var h = (m.homeTeam&&m.homeTeam.name)||'?', a = (m.awayTeam&&m.awayTeam.name)||'?';
     var comp = m.competition ? m.competition.name : '';
     var grp = (m.group||'').replace('GROUP_','');
     var md = m.matchday || '';
@@ -454,7 +454,7 @@ function renderMatches(evts, list) {
   }
   var html = '';
   evts.forEach(function(m) {
-    var h = m.homeTeam.name||'?', a = m.awayTeam.name||'?';
+    var h = (m.homeTeam&&m.homeTeam.name)||'?', a = (m.awayTeam&&m.awayTeam.name)||'?';
     var comp = m.competition ? m.competition.name : '';
     var grp = (m.group||'').replace('GROUP_','');
     var md = m.matchday || '';
