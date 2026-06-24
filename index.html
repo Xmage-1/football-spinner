@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>足球转盘</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,sans-serif;background:#0a1628;color:#e0e0e0;min-height:100vh;overflow-x:hidden}
+.view{display:none;flex-direction:column;align-items:center;min-height:100vh;padding:16px;background:linear-gradient(180deg,#0a1628,#1a2a4a)}
+.view.active{display:flex}
+.sel-header{text-align:center;margin-bottom:12px;width:100%}
+.sel-title{font-size:22px;font-weight:bold;color:#ffd700}
+.sel-sub{font-size:12px;color:#888;margin-top:4px}
+.sel-count{font-size:13px;color:#4fc3f7;margin-top:6px}
+.sel-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;width:100%;max-width:400px;margin-bottom:14px}
+.sel-item{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;border-radius:10px;background:rgba(13,33,55,0.85);border:2px solid #2a3a5a;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;user-select:none}
+.sel-item:active{transform:scale(.95)}
+.sel-item.checked{border-color:#ffd700;background:rgba(255,215,0,0.08)}
+.sel-item .color-dot{width:100%;height:4px;border-radius:2px;margin-bottom:5px}
+.sel-item .sc{font-size:15px;font-weight:bold;color:#fff;line-height:1.3}
+.sel-item .dc{font-size:10px;color:#999;line-height:1.2}
+.sel-item .ck{position:absolute;top:4px;right:4px;width:16px;height:16px;border-radius:50%;border:2px solid #555;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .15s}
+.sel-item.checked .ck{border-color:#ffd700;background:#ffd700;color:#0a1628;font-weight:bold}
+.sel-actions{display:flex;gap:10px;margin-bottom:12px}
+.sel-btn{padding:8px 18px;font-size:13px;border-radius:20px;border:1px solid #3a4a6a;background:rgba(13,33,55,0.8);color:#ccc;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s}
+.sel-btn:active{background:#1a2a4a}
+.sel-gen{width:200px;height:44px;font-size:16px;font-weight:bold;border-radius:50px;border:none;background:linear-gradient(135deg,#ffd700,#ffaa00);color:#000;cursor:pointer;transition:opacity .2s;-webkit-tap-highlight-color:transparent}
+.sel-gen:disabled{opacity:.4;cursor:not-allowed}
+.top-bar{width:100%;max-width:420px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.back-btn{display:flex;align-items:center;gap:4px;font-size:13px;color:#888;cursor:pointer;padding:4px 8px;border-radius:6px;-webkit-tap-highlight-color:transparent}
+.back-btn:active{background:rgba(255,255,255,.05)}
+.back-btn svg{width:16px;height:16px;fill:#888}
+.wheel-title{font-size:18px;font-weight:bold;color:#ffd700}
+.wheel-sub{font-size:11px;color:#666;margin-bottom:4px}
+.wheel-wrap{position:relative;margin:4px auto}
+.wheel-wrap canvas{display:block;border-radius:50%}
+.pointer{position:absolute;top:-5px;left:50%;transform:translateX(-50%);z-index:10;width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #ffd700;filter:drop-shadow(0 0 4px rgba(255,215,0,.4))}
+.result-box{width:260px;margin:8px auto;padding:10px 12px;border-radius:12px;background:rgba(13,33,55,0.9);border:1px solid #2a3a5a;display:flex;flex-direction:column;align-items:center}
+.rl{font-size:11px;color:#888}
+.rs{font-size:36px;font-weight:bold;color:#ffd700;text-align:center;line-height:1.2}
+.rd{font-size:13px;color:#aaa}
+.spin-btn{width:200px;height:44px;line-height:44px;margin:8px auto;font-size:18px;font-weight:bold;border-radius:50px;background:linear-gradient(135deg,#ffd700,#ffaa00);color:#000;border:none;text-align:center;cursor:pointer;transition:opacity .2s;-webkit-tap-highlight-color:transparent}
+.spin-btn:disabled{opacity:.6;cursor:not-allowed}
+.history-box{width:280px;margin:10px auto;padding:8px 10px;border-radius:8px;background:rgba(10,21,32,0.9);border:1px solid #2a3a5a;min-height:30px}
+.ht{font-size:11px;color:#888;margin-bottom:6px;display:block}
+.hs{display:flex;flex-wrap:wrap;gap:4px;max-height:100px;overflow-y:auto;min-height:20px}
+.hi{display:inline-flex;flex-direction:column;align-items:center;padding:4px 10px;background:#1a2a4a;border-radius:4px;color:#4fc3f7;font-size:11px;line-height:1.3}
+.hi .hi-conf{font-size:8px;color:#666}
+.hi-new{animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+@media(max-width:360px){
+  .sel-grid{gap:5px}
+  .sel-item{padding:6px 2px}
+  .sel-item .sc{font-size:13px}
+  .result-box{width:220px}
+  .history-box{width:240px}
+}
+</style>
+</head>
+<body>
+<div id="selectView" class="view active">
+  <div class="sel-header">
+    <div class="sel-title">足球转盘</div>
+    <div class="sel-sub">勾选想要的比分，至少选2个</div>
+    <div class="sel-count" id="selCount">已选 20/20</div>
+  </div>
+  <div class="sel-grid" id="selGrid"></div>
+  <div class="sel-actions">
+    <button class="sel-btn" id="selAllBtn">全选</button>
+    <button class="sel-btn" id="selNoneBtn">取消全选</button>
+  </div>
+  <button class="sel-gen" id="selGenBtn" disabled>生成转盘</button>
+</div>
+
+<div id="wheelView" class="view">
+  <div class="top-bar">
+    <div class="back-btn" id="backBtn">
+      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      重新选择
+    </div>
+    <div class="wheel-title">足球转盘</div>
+    <div style="width:70px"></div>
+  </div>
+  <div class="wheel-sub" id="wheelConfig">20项比分</div>
+  <div class="wheel-wrap" id="wheelWrap">
+    <div class="pointer"></div>
+    <canvas id="wheelCanvas"></canvas>
+  </div>
+  <div class="result-box">
+    <div class="rl">本次结果</div>
+    <div class="rs" id="resultScore">???</div>
+    <div class="rd" id="resultDesc">点击按钮开始</div>
+  </div>
+  <button class="spin-btn" id="spinBtn">转！</button>
+  <div class="history-box" id="historyBox">
+    <span class="ht" id="historyTitle">历史记录（共0次）</span>
+    <div class="hs" id="historyList"><span style="color:#444;font-size:11px">转动转盘后结果会出现在这里</span></div>
+  </div>
+</div>
+
+<script>
+var ALL_SCORES = [
+  {s:"1-0", d:"小胜"},{s:"2-0", d:"稳健胜"},{s:"2-1", d:"险胜"},
+  {s:"3-0", d:"大胜"},{s:"3-1", d:"压制胜"},{s:"4-0", d:"完胜"},
+  {s:"4-1", d:"大比分"},{s:"5-0", d:"碾压"},{s:"5-1", d:"狂胜"},
+  {s:"1-1", d:"平局"},{s:"2-2", d:"对攻平"},{s:"3-2", d:"进球大战"},
+  {s:"3-3", d:"疯狂对攻"},{s:"4-2", d:"对攻胜"},{s:"0-0", d:"闷平"},
+  {s:"0-1", d:"客队小胜"},{s:"0-2", d:"客队胜"},{s:"1-2", d:"客队险胜"},
+  {s:"1-3", d:"客队大胜"},{s:"2-3", d:"客队胜"}
+];
+var COLORS = [
+  "#e74c3c","#e67e22","#f1c40f","#2ecc71","#1abc9c",
+  "#3498db","#9b59b6","#e84393","#00b894","#6c5ce7",
+  "#fd79a8","#00cec9","#d63031","#e17055","#fdcb6e",
+  "#55a3e8","#a29bfe","#fab1a0","#81ecec","#ff7675"
+];
+var selectedIndices = ALL_SCORES.map(function(_,i){return i});
+var history = [];
+var PI2 = 2 * Math.PI;
+var currentAngle = 0, spinning = false, animId = null;
+var canvas = null, ctx = null, wheelSize = 300, wheelR = 145, wheelCx = 150, wheelCy = 150;
+
+// ====== 选择页 ======
+function renderSelect() {
+  var g = document.getElementById('selGrid');
+  g.innerHTML = '';
+  var sel = {};
+  selectedIndices.forEach(function(i){sel[i]=true});
+  ALL_SCORES.forEach(function(it,i){
+    var d = document.createElement('div');
+    d.className = 'sel-item' + (sel[i]?' checked':'');
+    d.innerHTML = '<div class="color-dot" style="background:'+COLORS[i]+'"></div><div class="sc">'+it.s+'</div><div class="dc">'+it.d+'</div><div class="ck">'+(sel[i]?'\u2713':'')+'</div>';
+    d.addEventListener('click',function(){toggleSelect(i)});
+    g.appendChild(d);
+  });
+  document.getElementById('selCount').textContent = '\u5df2\u9009 '+selectedIndices.length+'/20';
+  document.getElementById('selGenBtn').disabled = selectedIndices.length < 2;
+}
+
+function toggleSelect(i) {
+  var idx = selectedIndices.indexOf(i);
+  if(idx >= 0) {
+    if(selectedIndices.length <= 2) return;
+    selectedIndices.splice(idx,1);
+  } else {
+    selectedIndices.push(i);
+    selectedIndices.sort(function(a,b){return a-b});
+  }
+  renderSelect();
+}
+
+document.getElementById('selAllBtn').addEventListener('click',function(){
+  selectedIndices = ALL_SCORES.map(function(_,i){return i});
+  renderSelect();
+});
+
+document.getElementById('selNoneBtn').addEventListener('click',function(){
+  selectedIndices = [0,1];
+  renderSelect();
+});
+
+document.getElementById('selGenBtn').addEventListener('click',function(){
+  if(selectedIndices.length < 2) return;
+  switchToWheel();
+});
+
+// ====== 转盘页 ======
+function switchToWheel() {
+  document.getElementById('selectView').classList.remove('active');
+  document.getElementById('wheelView').classList.add('active');
+  initWheel();
+}
+
+document.getElementById('backBtn').addEventListener('click',function(){
+  if(animId) { cancelAnimationFrame(animId); animId = null; }
+  spinning = false;
+  document.getElementById('wheelView').classList.remove('active');
+  document.getElementById('selectView').classList.add('active');
+});
+
+// Spin button - set up once
+document.getElementById('spinBtn').addEventListener('click', function(){
+  if(spinning) return;
+  doSpin();
+});
+
+function initWheel() {
+  var sel = selectedIndices.map(function(i){return ALL_SCORES[i]});
+  var n = sel.length;
+  document.getElementById('wheelConfig').textContent = n + '\u9879\u6bd4\u5206';
+
+  canvas = document.getElementById('wheelCanvas');
+  var vw = Math.min(window.innerWidth - 32, 380);
+  var size = Math.max(240, vw);
+  wheelSize = size;
+  wheelR = size * 0.48;
+  wheelCx = size / 2;
+  wheelCy = size / 2;
+
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = size * dpr;
+  canvas.height = size * dpr;
+  canvas.style.width = size + 'px';
+  canvas.style.height = size + 'px';
+  ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  document.getElementById('wheelWrap').style.width = size + 'px';
+  document.getElementById('wheelWrap').style.height = size + 'px';
+
+  currentAngle = 0;
+  spinning = false;
+  var btn = document.getElementById('spinBtn');
+  btn.disabled = false;
+  btn.textContent = '\u8f6c\uff01';
+
+  document.getElementById('resultScore').textContent = '???';
+  document.getElementById('resultDesc').textContent = '\u70b9\u51fb\u6309\u94ae\u5f00\u59cb';
+
+  drawWheel(0, sel);
+}
+
+function drawWheel(angle, scores) {
+  if(!ctx) return;
+  var n = scores.length;
+  var seg = PI2 / n;
+  var s = wheelSize, cx = wheelCx, cy = wheelCy, r = wheelR;
+  var uc = selectedIndices.map(function(i){return COLORS[i]});
+
+  ctx.clearRect(0, 0, s, s);
+
+  ctx.beginPath();
+  ctx.arc(cx, cy, r + 3, 0, PI2);
+  ctx.strokeStyle = 'rgba(255,215,0,0.15)';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  for(var i=0; i<n; i++) {
+    var sa = angle + i*seg;
+    var ea = sa + seg;
+
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, sa, ea);
+    ctx.closePath();
+    ctx.fillStyle = uc[i];
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    var ta = sa + seg/2;
+    var tr = r * 0.6;
+    var sf = Math.max(10, Math.min(16, 170/n));
+    var df = Math.max(7, Math.min(11, 110/n));
+
+    ctx.save();
+    ctx.translate(cx + Math.cos(ta)*tr, cy + Math.sin(ta)*tr);
+    ctx.rotate(ta + Math.PI/2);
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = 'bold ' + sf + 'px sans-serif';
+    ctx.shadowColor = 'rgba(0,0,0,0.4)';
+    ctx.shadowBlur = 2;
+    ctx.fillText(scores[i].s, 0, -5);
+    ctx.font = df + 'px sans-serif';
+    ctx.shadowBlur = 0;
+    ctx.fillText(scores[i].d, 0, 8);
+    ctx.restore();
+  }
+
+  ctx.beginPath();
+  ctx.arc(cx, cy, Math.min(18, r*0.12), 0, PI2);
+  ctx.fillStyle = '#0a1628';
+  ctx.fill();
+  ctx.strokeStyle = '#ffd700';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  ctx.fillStyle = '#ffd700';
+  ctx.font = 'bold ' + Math.min(14, r*0.09) + 'px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('\u26bd', cx, cy);
+}
+
+function getResult(totalAngle, scoreCount) {
+  var seg = PI2 / scoreCount;
+  var norm = ((totalAngle % PI2) + PI2) % PI2;
+  var off = ((-Math.PI/2 - norm) % PI2 + PI2) % PI2;
+  return Math.floor(off / seg) % scoreCount;
+}
+
+function doSpin() {
+  if(spinning) return;
+  spinning = true;
+
+  var btn = document.getElementById('spinBtn');
+  btn.disabled = true;
+  btn.textContent = '\u65cb\u8f6c\u4e2d...';
+
+  // Get current scores
+  var scores = selectedIndices.map(function(i){return ALL_SCORES[i]});
+  var n = scores.length;
+  var seg = PI2 / n;
+  var startAngle = currentAngle;
+  var targetAngle = startAngle + PI2 * (5 + Math.random() * 3);
+  var steps = 0;
+  var maxSteps = 50;
+
+  function animate() {
+    steps++;
+    var p = Math.min(steps / maxSteps, 1);
+    var ease = 1 - Math.pow(1 - p, 3);
+    var a = startAngle + (targetAngle - startAngle) * ease;
+    drawWheel(a, scores);
+
+    if(steps < maxSteps) {
+      animId = requestAnimationFrame(animate);
+    } else {
+      // Spin complete
+      currentAngle = targetAngle;
+      var idx = getResult(targetAngle, n);
+      try {
+        var r = scores[idx];
+        document.getElementById('resultScore').textContent = r.s;
+        document.getElementById('resultDesc').textContent = r.d;
+        var config = n + '\u9879\u6bd4\u5206';
+        history.unshift({score: r.s, desc: r.d, config: config, time: new Date().toLocaleTimeString()});
+        if(history.length > 30) history.pop();
+        renderHistory();
+      } catch(e) {
+        console.error('Spin result error:', e);
+      }
+      spinning = false;
+      btn.disabled = false;
+      btn.textContent = '\u8f6c\uff01';
+    }
+  }
+
+  if(animId) { cancelAnimationFrame(animId); animId = null; }
+  animate();
+}
+
+function renderHistory() {
+  var title = document.getElementById('historyTitle');
+  var list = document.getElementById('historyList');
+  title.textContent = '\u5386\u53f2\u8bb0\u5f55\uff08\u5171' + history.length + '\u6b21\uff09';
+  list.innerHTML = '';
+  history.forEach(function(h){
+    var el = document.createElement('div');
+    el.className = 'hi';
+    el.innerHTML = '<span>' + h.score + '</span><span class="hi-conf">' + h.config + '</span>';
+    list.appendChild(el);
+  });
+  // Scroll to top to show newest
+  list.scrollTop = 0;
+}
+
+renderSelect();
+</script>
+</body>
+</html>
